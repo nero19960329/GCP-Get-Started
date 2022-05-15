@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gcpgetstarted-deployment-$BRANCH_NAME
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gcpgetstarted-$BRANCH_NAME
+  template:
+    metadata:
+      labels:
+        app: gcpgetstarted-$BRANCH_NAME
+    spec:
+      containers:
+      - name: gcpgetstarted-app-$BRANCH_NAME
+        image: asia-east1-docker.pkg.dev/gcpgetstarted/gke-get-started-repo/gcpgetstarted-python-$BRANCH_NAME:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: PORT
+          value: "8080"
